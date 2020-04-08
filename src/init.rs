@@ -6,6 +6,8 @@ static HELLO: &[u8] = b"Hello World!";
 
 #[no_mangle]
 pub fn rust_main() -> ! {
-    crate::io::puts("666666");
-    loop {}
+    let a = "Hello";
+    let b = "World";
+    println!("{}, {}!", a, b);
+    panic!("End of rust_main");
 }
