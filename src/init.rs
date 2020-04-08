@@ -6,8 +6,6 @@ static HELLO: &[u8] = b"Hello World!";
 
 #[no_mangle]
 pub fn rust_main() -> ! {
-    for &c in HELLO {
-        sbi::console_putchar(c as usize);
-    }
+    crate::io::puts("666666");
     loop {}
 }
