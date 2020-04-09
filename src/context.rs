@@ -12,3 +12,9 @@ pub struct TrapFrame {
     pub stval: usize, // supervisor trap value
     pub scause: Scause, // scause register: record the cause of exception/interrupt/trap
 }
+
+impl TrapFrame {
+    pub fn increase_sepc(self: &mut Self) {
+        self.sepc = self.sepc + 4;
+    }
+}

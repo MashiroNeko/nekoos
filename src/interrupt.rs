@@ -17,4 +17,5 @@ pub fn init() {
 #[no_mangle]
 pub fn rust_trap(tf: &mut TrapFrame) {
     println!("trap!");
+    tf.increase_sepc();
 }
