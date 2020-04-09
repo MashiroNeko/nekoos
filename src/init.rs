@@ -6,8 +6,9 @@ static HELLO: &[u8] = b"Hello World!";
 
 #[no_mangle]
 pub fn rust_main() -> ! {
-    let a = "Hello";
-    let b = "World";
-    println!("{}, {}!", a, b);
+    crate::interrupt::init();
+    unsafe{
+        asm!("ebreak"::::"volatile");
+    }
     panic!("End of rust_main");
 }
