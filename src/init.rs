@@ -8,6 +8,6 @@ static HELLO: &[u8] = b"Hello World!";
 pub fn rust_main() -> ! {
     crate::interrupt::init();
     crate::clock::init();
-    unsafe { asm!("ebreak"::::"volatile"); }
+    crate::memory::init();
     loop {}
 }
