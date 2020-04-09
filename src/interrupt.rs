@@ -1,16 +1,20 @@
-use riscv::register::{ scause, sepc, stvec, sscratch };
+use riscv::register::{ stvec, sscratch };
+use crate::context::TrapFrame;
+
+global_asm!(include_str!("trap/trap.asm"));
 
 pub fn init() {
+    extern {
+        fn __alltraps();
+    }
     unsafe {
         sscratch::write(0); 
-        stvec::write(trap_handler as usize, stvec::TrapMode::Direct);
+        stvec::write(__alltraps as usize, stvec::TrapMode::Direct);
     }
     println!("++++setup interrupt !++++");
 }
 
-fn trap_handler() -> ! {
-    let cause = scause::read().cause();
-    let epc = sepc::read();
-    println!("trap: cause: {:?}, epc: {:#x}", cause, epc);
-    panic!("trap");
+#[no_mangle]
+pub fn rust_trap(tf: &mut TrapFrame) {
+    println!("trap!");
 }
