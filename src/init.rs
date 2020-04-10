@@ -5,11 +5,12 @@ global_asm!(include_str!("boot/entry.asm"));
 static HELLO: &[u8] = b"Hello World!";
 
 #[no_mangle]
-pub fn rust_main() -> ! {
+pub extern "C" fn rust_main(hartid: usize, dtb: usize) -> ! {
     crate::interrupt::init();
     crate::clock::init();
     crate::memory::init();
-    test_page_table();
+    //test_page_table();
+    crate::process::init();
     loop {}
 }
 
